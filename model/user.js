@@ -2,8 +2,8 @@ const { Schema, model } = require('mongoose');
 const { ROLES, NORMAL, ENVIRONMENTS, DEV } = require('../constants');
 
 const userSchema = new Schema({
-    first_name: { type: String, required: true },
-    last_name: { type: String, required: true },
+    firstName: { type: String, required: true },
+    lastName: { type: String, required: true },
     email: { type: String, unique: true },
     password: { type: String, required: true },
     token: { type: String },
