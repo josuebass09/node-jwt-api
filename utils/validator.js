@@ -12,7 +12,7 @@
  * @returns {Object} - An object indicating whether the input is valid and the invalid field (if any).
  */
 function validateRegister(input) {
-    const requiredFields = ['email', 'password', 'first_name', 'last_name', 'activity', 'identifier', 'apiKey'];
+    const requiredFields = ['email', 'password', 'phoneNumber','firstName', 'lastName', 'activity', 'identifier', 'apiKey'];
 
     for (const field of requiredFields) {
         if (!input[field]) {
@@ -43,8 +43,32 @@ function validateLogin(input) {
     return { isValid: true };
 }
 
+function validatePostClient(input) {
+    const requiredFields = [
+        'id',
+        'name',
+        'phone',
+        'email',
+        'address',
+        'status',
+        'createdAt',
+        'idType',
+        'identifier',
+        'countryCode',
+    ];
+
+    for (const field of requiredFields) {
+        if (!input[field]) {
+            return { isValid: false, field };
+        }
+    }
+
+    return { isValid: true };
+}
+
 module.exports = {
     validateRegister,
-    validateLogin
+    validateLogin,
+    validatePostClient
 };
 

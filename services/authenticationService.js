@@ -87,7 +87,7 @@ const register = async (req, res) => {
             handleErrorResponse(res, httpStatus.BAD_REQUEST, generateError(`${validation.field} is required`));
         }
 
-        const { email, password, first_name, last_name, activity, identifier, environment } = input;
+        const { email, password, phoneNumber, firstName, lastName, activity, identifier, environment, apiKey } = input;
 
         const oldUser = await User.findOne({ email });
 
@@ -98,13 +98,15 @@ const register = async (req, res) => {
         const encryptedPassword = await bcrypt.hash(password, 10);
 
         const user = await User.create({
-            first_name,
-            last_name,
+            firstName,
+            lastName,
+            phoneNumber,
             environment,
             activity,
             identifier,
             email: email.toLowerCase(),
             password: encryptedPassword,
+            apiKey
         });
 
         user.token = jwt.sign(
