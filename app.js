@@ -5,6 +5,7 @@ const { verifyToken, login, register } = require('./services/authenticationServi
 const { httpStatus } = require('./constants');
 const { handleSuccessResponse, handleErrorResponse, generateError } = require('./utils/responseHandler');
 const { postClient, getClientById, putClient, deleteClient, getClientByEmailOrGetAll } = require('./services/clientService');
+const { getProducts, getProductById, postProduct, putProduct, deleteProduct } = require('./services/productService');
 const app = express();
 
 app.use(express.json());
@@ -15,11 +16,23 @@ app.get('/home', verifyToken, (req, res) => {
     handleSuccessResponse(res, { message: 'OK' });
 });
 
-app.post('/client', postClient);
-app.get('/client/:id', getClientById);
-app.get('/client', getClientByEmailOrGetAll);
-app.put('/client/:id', putClient);
-app.delete('/client/:id', deleteClient);
+/**
+ * Clients routes
+ */
+app.post('/clients', postClient);
+app.get('/clients/:id', getClientById);
+app.get('/clients', getClientByEmailOrGetAll);
+app.put('/clients/:id', putClient);
+app.delete('/clients/:id', deleteClient);
+
+/**
+ * Products routes
+ */
+app.get('/products', getProducts);
+app.get('/products/:id', getProductById);
+app.post('/products', postProduct);
+app.put('/products/:id', putProduct);
+app.delete('/products/:id', deleteProduct);
 //page not found handler
 app.use('*', (req, res) => {
     handleErrorResponse(res, httpStatus.NOT_FOUND, generateError('Page not found'));
